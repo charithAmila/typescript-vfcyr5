@@ -21,13 +21,13 @@ const poly: Point[] = [
   { x: 250, y: 450 },
 ];
 
-var bullet = { x: poly[0].x, y: poly[0].y };
+var closestPint = { x: poly[0].x, y: poly[0].y };
 
 const draw = function () {
   ctx.fillStyle = '#FFFF';
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillRect(bullet.x - 2, bullet.y - 2, 4, 4);
+  ctx.fillRect(closestPint.x - 2, closestPint.y - 2, 4, 4);
 
   ctx.globalCompositeOperation = 'destination-over';
   ctx.fillStyle = 'rgb(63, 63, 63)';
@@ -83,8 +83,7 @@ canvas.addEventListener('mousemove', function (e) {
   var canvasX = Math.round(e.clientX - cRect.left);
   var canvasY = Math.round(e.clientY - cRect.top);
 
-  const closestPint = closestPointInPolygon(poly, { x: canvasX, y: canvasY });
-  bullet = closestPint;
+  closestPint = closestPointInPolygon(poly, { x: canvasX, y: canvasY });
   draw();
 });
 
