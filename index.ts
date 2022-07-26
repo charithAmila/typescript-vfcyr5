@@ -1,36 +1,36 @@
 // Import stylesheets
-import { Point } from "./PointInterface";
-import "./style.css";
+import { Point } from './PointInterface';
+import './style.css';
 
 // Write TypeScript code!
-const appDiv: HTMLElement = document.getElementById("app");
+const appDiv: HTMLElement = document.getElementById('app');
 appDiv.innerHTML = `<canvas id="canvas"></canvas>`;
 
-var canvas = document.getElementById("canvas") as HTMLCanvasElement | null;
+var canvas = document.getElementById('canvas') as HTMLCanvasElement | null;
 
 canvas.width = document.body.clientWidth;
 canvas.height = document.body.clientHeight;
 
-var ctx = canvas.getContext("2d");
+var ctx = canvas.getContext('2d');
 
 const poly: Point[] = [
   { x: 10, y: 10 },
-  { x: 200, y: 10 },
-  { x: 200, y: 200 },
-  { x: 10, y: 200 },
+  { x: 100, y: 10 },
+  { x: 100, y: 100 },
+  { x: 10, y: 100 },
 ];
 
 var bullet = { x: poly[0].x, y: poly[0].y };
 
 const draw = function () {
-  ctx.fillStyle = "#FFFF";
+  ctx.fillStyle = '#FFFF';
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   ctx.fillRect(bullet.x - 2, bullet.y - 2, 4, 4);
 
-  ctx.globalCompositeOperation = "destination-over";
-  ctx.fillStyle = "rgb(63, 63, 63)";
-  ctx.strokeStyle = "rgb(173, 172, 172)";
+  ctx.globalCompositeOperation = 'destination-over';
+  ctx.fillStyle = 'rgb(63, 63, 63)';
+  ctx.strokeStyle = 'rgb(173, 172, 172)';
 
   ctx.beginPath();
   for (let index = 0; index < poly.length; index++) {
@@ -70,7 +70,7 @@ function closestPointInPolygon(poly: Point[], pos: Point): Point {
   return { x, y };
 }
 
-canvas.addEventListener("mousemove", function (e) {
+canvas.addEventListener('mousemove', function (e) {
   var cRect = canvas.getBoundingClientRect();
   var canvasX = Math.round(e.clientX - cRect.left);
   var canvasY = Math.round(e.clientY - cRect.top);
