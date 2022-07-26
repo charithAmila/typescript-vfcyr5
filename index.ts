@@ -1,10 +1,14 @@
 // Import stylesheets
-import { Point } from './PointInterface';
 import './style.css';
 
 // Write TypeScript code!
 const appDiv: HTMLElement = document.getElementById('app');
 appDiv.innerHTML = `<canvas id="canvas"></canvas>`;
+
+interface Point {
+  x: number;
+  y: number;
+}
 
 var canvas = document.getElementById('canvas') as HTMLCanvasElement | null;
 
