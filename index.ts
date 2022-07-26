@@ -8,16 +8,17 @@ appDiv.innerHTML = `<canvas id="canvas"></canvas>`;
 
 var canvas = document.getElementById('canvas') as HTMLCanvasElement | null;
 
-canvas.width = document.body.clientWidth;
-canvas.height = document.body.clientHeight;
+canvas.width = 500;
+canvas.height = 500;
 
 var ctx = canvas.getContext('2d');
 
 const poly: Point[] = [
-  { x: 10, y: 10 },
-  { x: 100, y: 10 },
-  { x: 100, y: 100 },
-  { x: 10, y: 100 },
+  { x: 200, y: 200 },
+  { x: 350, y: 50 },
+  { x: 500, y: 200 },
+  { x: 450, y: 450 },
+  { x: 250, y: 450 },
 ];
 
 var bullet = { x: poly[0].x, y: poly[0].y };
