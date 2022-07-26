@@ -45,11 +45,18 @@ const draw = function () {
 };
 
 function closestPointInPolygon(poly: Point[], pos: Point): Point {
-  var coordinates = [];
+  var coordinates: any[] = [];
 
   for (let i = 0; i < poly.length; i++) {
     const data = getAllCoordinates(poly[i], poly[i + 1] ?? poly[0]);
     coordinates.push(...data);
+  }
+
+  if (inside({ x: pos.x, y: pos.y }, coordinates)) {
+    return {
+      x: pos.x,
+      y: pos.y,
+    };
   }
 
   const { x, y } = coordinates
@@ -74,6 +81,7 @@ canvas.addEventListener('mousemove', function (e) {
   var cRect = canvas.getBoundingClientRect();
   var canvasX = Math.round(e.clientX - cRect.left);
   var canvasY = Math.round(e.clientY - cRect.top);
+
   const closestPint = closestPointInPolygon(poly, { x: canvasX, y: canvasY });
   bullet = closestPint;
   draw();
@@ -122,6 +130,27 @@ function getAllCoordinates(A: Point, B: Point) {
     }
   }
   return coordinates;
+}
+
+function inside(point: Point, vs: any[]) {
+  // ray-casting algorithm based on
+  // https://wrf.ecse.rpi.edu/Research/Short_Notes/pnpoly.html/pnpoly.html
+
+  var x = point.x;
+  var y = point.y;
+
+  var inside = false;
+  for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+    var xi = vs[i][0],
+      yi = vs[i][1];
+    var xj = vs[j][0],
+      yj = vs[j][1];
+
+    var intersect =
+      yi > y != yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+    if (intersect) inside = !inside;
+  }
+  return inside;
 }
 
 draw();
